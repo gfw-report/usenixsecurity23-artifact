@@ -51,8 +51,6 @@
 
 \documentclass[letterpaper,twocolumn,10pt]{article}
 \usepackage{usenix-2020-09}
-% Add all three awarded badges to the final version of the appendix.
-\usepackage[available,functional,reproduced]{usenixbadges}
 
 % to be able to draw some self-contained figs
 \usepackage{tikz}
@@ -88,9 +86,13 @@
 %  * `reproduced` --- affix the "Results Reproduced" badge
 %
 % Example:
-%\usepackage[available,functional,reproduced]{usenixbadges}
+% Add all three awarded badges to the final version of the appendix.
+\usepackage[available,functional,reproduced]{usenixbadges}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Suppress page numbers for the camera-ready version.
+\pagenumbering{gobble}
 
 %-------------------------------------------------------------------------------
 \begin{document}

@@ -1,0 +1,88 @@
+%% -*- mode: LaTeX -*-
+%%
+%% usenixbadges.sty --- affix USENIX Artifact Evaluation badges
+%%
+%% Usage:
+%%   \usepackage[<options>]{usenixbadges}
+%% Options:
+%%   available  --- affix the "Artifacts Available" badge
+%%   functional --- affix the "Artifacts Functional" badge
+%%   reproduced --- affix the "Results Reproduced" badge
+%%
+%% Example:
+%%   %% Affix the indicated badges to the paper.
+%%   \usepackage[available,functional]{usenixbadges}
+%%
+%% Revision history:
+%%   1.1 (Jan 18 2022):
+%%     Adapt margins for USENIX Sec 2022's papers and appendices (Cristiano Giuffrida, Clémentine Maurice)
+%%   1.0 (Oct 11 2020):
+%%     Initial implementation for OSDI 2020 by Eric Eide <eeide@cs.utah.edu>
+%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\def\usenix@fileversion{1.0}
+\def\usenix@filedate{2020/10/11}
+\ProvidesPackage{usenixbadges}
+  [\usenix@filedate\space v\usenix@fileversion\space USENIX Artifact Evaluation Badges]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifusenix@availablebadge
+\usenix@availablebadgefalse
+\DeclareOption{available}{\usenix@availablebadgetrue}
+
+\newif\ifusenix@functionalbadge
+\usenix@functionalbadgefalse
+\DeclareOption{functional}{\usenix@functionalbadgetrue}
+
+\newif\ifusenix@reproducedbadge
+\usenix@reproducedbadgefalse
+\DeclareOption{reproduced}{\usenix@reproducedbadgetrue}
+
+\DeclareOption*{%
+  \PackageError{usenixbadges}{%
+    unknown option: \CurrentOption}{%
+    Press <return> to proceed, ignoring unknown option: \CurrentOption.}%
+}
+
+\ProcessOptions\relax
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{graphicx}
+\RequirePackage[absolute]{textpos}
+
+\setlength{\TPHorizModule}{1in}
+\setlength{\TPVertModule}{1in}
+
+\AtBeginDocument{%
+\begin{textblock}{7.0}(0.75,0.3)%
+  \vbox to 0pt{%
+    \vss%
+    \noindent%
+    \makebox[7in][r]{%
+      \ifusenix@availablebadge%
+        \raisebox{-\height}{%
+          \includegraphics[width=0.6in]{usenixbadges-available}}%
+      \fi%
+      \ifusenix@functionalbadge%
+        \hspace{10pt}%
+        \raisebox{-\height}{%
+          \includegraphics[width=0.6in]{usenixbadges-functional}}%
+      \fi%
+      \ifusenix@reproducedbadge%
+        \hspace{10pt}%
+        \raisebox{-\height}{%
+          \includegraphics[width=0.6in]{usenixbadges-reproduced}}%
+      \fi%
+    }%
+    \vskip-\prevdepth}%
+\end{textblock}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% End of file.

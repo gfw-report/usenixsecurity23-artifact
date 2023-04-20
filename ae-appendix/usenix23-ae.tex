@@ -1,0 +1,470 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Artifact Appendix Template for EuroSys'22 AE
+%
+% this document has a maximum length of 2 pages.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+\section{Artifact Appendix}
+% \textit{This artifact appendix is meant to be a self-contained document which
+% describes a roadmap for the evaluation of your artifact. It should include a
+% clear description of the hardware, software, and configuration requirements. In
+% case your artifact aims to receive the functional or results reproduced badge,
+% it should also include the major claims made by your paper and instructions on
+% how to reproduce each claim through your artifact. Linking the claims of your
+% paper to the artifact is a necessary step that ultimately allows artifact
+% evaluators to reproduce your results.}
+
+% \textit{Please fill all the mandatory sections, keeping their titles and
+% organization but removing the current illustrative content, and remove the
+% optional sections where those do not apply to your artifact.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Abstract}
+% {\em [Mandatory]}
+% {\em Provide a short description of your artifact.}
+
+As introduced in the paper, we measure and characterize the GFW's new
+system for censoring fully encrypted traffic. We find that, 
+instead of directly defining what fully encrypted traffic is, the
+censor applies crude but efficient heuristics to exempt traffic
+that is unlikely to be fully encrypted traffic; it then blocks the
+remaining non-exempted traffic. These heuristics are based
+on the fingerprints of common protocols, the fraction of set
+bits, and the number, fraction, and position of printable ASCII
+characters. 
+In this artifact,
+we provide the data and code to support our major claims.
+Additionally, we conducted a follow-up experiment to confirm that
+the GFW had stopped blocking fully encrypted traffic dynamically
+as of Wednesday, March 15, 2023.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Description \& Requirements}
+
+% \textit{[Mandatory] This section should list all the information necessary to
+% recreate the same experimental setup you have used to run your artifact. Where
+% it applies, the minimal hardware and software requirements to run your artifact.
+% It is also very good practice to list and describe in this section benchmarks
+% where those are part of, or simply have been used to produce results with, your
+% artifact.}
+
+\subsubsection{Security, privacy, and ethical concerns}
+% \textit{[Mandatory] Describe any risk for evaluators while executing your
+% artifact to their machines security, data privacy or others ethical concerns.
+% This is particularly important if destructive steps are taken or security
+% mechanisms are disabled during the execution.}
+As detailed in the ethics section of our paper,
+our measurement tools have already employed the best practices by default.
+\subsubsection{How to access}
+% {\em [Mandatory]} \textit{Describe here how to access your artifact. If you are
+% applying for the Artifacts Available badge, the archived copy of the artifacts
+% must be accessible via a stable reference or DOI. For this purpose, we recommend
+% Zenodo, but other valid hosting options include institutional and third-party
+% digital repositoriesValid hosting options include institutional repositories and
+% third-party digital repositories (e.g., Zenodo, FigShare, Dryad, Software
+% Heritage, GitHub, or GitLab — not personal webpages). For repositories that can
+% evolve over time (e.g., GitHub), a stable reference to the evaluated version
+% (e.g., a URL pointing to a commit hash or tag) rather than the evolving version
+% reference (e.g., a URL pointing to a mere repository) is required. Note that the
+% stable reference provided at submission time is for the purpose of Artifact
+% Evaluation. Since the artifact can potentially evolve during the evaluation to
+% address feedback from the reviewers, another (potentially different) stable
+% reference will be later collected for the final version of the artifact (to be
+% included here for the camera-ready version)}
+
+The artifact is available on GitHub:
+\url{https://github.com/gfw-report/usenixsecurity23-artifact}.
+
+
+\subsubsection{Hardware dependencies}
+%{\em [Mandatory]} \textit{Describe any specific hardware features required to
+%evaluate your artifact (vendor, CPU/GPU/FPGA, number of processors/cores,
+%microarchitecture, interconnect, memory, hardware counters, etc). If your
+%artifact requires special hardware, please provide instructions on how to gain
+%access to the hardware. For example, provide private SSH keys to access the
+%machines remotely. Please keep in mind that the anonymity of the reviewers needs
+%to be maintained and you may not collect or request personally identifying
+%information (e.g., eMail, name, address). [Simply write "None." where this does
+%not apply to your artifact.]}
+
+We have prepared a VPS in China and a VPS in the US,
+on which the AE reviewers can perform remote experiments.
+%
+The VPS in China is located in AlibabaCloud Beijing Datacenter (AS37963),
+which uses one core of Intel Xeon Platinum 8163 and 1GB RAM.
+The VPS in the US is located in DigitalOcean San Francisco Datacenter (AS14061),
+which uses one core of Intel DO-Regular and 1GB RAM.
+To SSH into the VPSes, reviewers need to install the provided credentials,
+as detailed in \texttt{artifacts/setup-vps/README.md}.
+
+For people other than the AE reviewers who want to perform experiments,
+they need to prepare a VPS in China and a VPS outside of China themselves.
+
+
+\subsubsection{Software dependencies}
+%{\em [Mandatory]} \textit{Describe any specific OS and software packages
+%required to evaluate your artifact. This is particularly important if you share
+%your source code and it must be compiled or if you rely on some proprietary
+%software that you cannot include in your package. In such a case, you must
+%describe how to obtain and to install all third-party software, data sets, and
+%models. [Simply write "None." where this does not apply to your artifact.]}
+
+The VPS in China runs Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-56-generic x86\_64).
+The VPS in the US runs Ubuntu 20.04.3 LTS (GNU/Linux 5.4.0-88-generic x86\_64).
+The following tools and environment are required:
+
+\begin{itemize}
+    \item GNU make utility
+    \item Go 1.17+
+    \item Python 3.8+
+\end{itemize}
+
+In particular, the two VPSes do not require Go environment. 
+As detailed in \texttt{README},
+reviewers may compile the Go code on their local machines and copy the binaries to the VPSes.
+
+\subsubsection{Benchmarks}
+% {\em [Mandatory]} \textit{Describe here any data (e.g., data-sets, models,
+% workloads, etc.) required by the experiments with this artifact reported in your
+% paper.} \textit{[Simply write "None." where this does not apply to your
+% artifact.]}
+None.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Set-up}
+
+%{\em [Mandatory]} \textit{This section should include all the installation and
+%configuration steps required to prepare the environment to be used for the
+%evaluation of your artifact.}
+
+As detailed in \texttt{artifacts/setup-vps/README.md}, 
+we have prepared a VPS in China and a VPS in the US,
+on which the AE reviewers can perform remote experiments.
+Since we have installed the dependencies and required tools on the VPSes,
+all reviewers need to do is to use the provided credentials to SSH into the VPSes
+to run experiments.
+We also provide one-click scripts, allowing reviewers to initialize test-ready VPSes themselves.
+Be very cautious that running setup scripts will disrupt other reviewers' ongoing experiments.
+
+\subsubsection{Installation}
+% {\em [Mandatory]} \textit{Instructions to download and install dependencies as
+% well as the main artifact. After these steps the evaluator should be able to run
+% a simple functionality test.}
+
+\begin{itemize}
+    \item Set up the Go environment: \url{https://go.dev/dl/}.
+    \item Retrieve the artifacts:
+    \texttt{git clone \url{https://github.com/gfw-report/usenixsecurity23-artifact}}.
+    \item Compile the client-side experiment tools and install them to the CN VPS:
+    \texttt{cd artifacts/setup-vps \&\& ./setup-client/to\_alibaba\_server.sh}.
+    \item Compile the sink server and install it to the US VPS:
+    \texttt{cd artifacts/setup-vps \&\& ./setup-server/to\_digitalocean\_server.sh}.
+\end{itemize}
+
+\subsubsection{Basic Test}
+%{\em [Mandatory]} \textit{Instructions to run a simple functionality test. Does
+%not need to run the entire system, but should check that all required software
+%components are used and functioning fine. Please include the expected successful
+%output and any required input parameters.}
+
+First login to the VPS in China using the provided credentials:
+\texttt{ssh usenix-ae-client-china}.
+
+Then send random probes to the port $80$ of the $\$serverIP$ with the following command:
+\texttt{echo \$serverIP | ./utils/affected-norand -p 80 -log /dev/null}.
+
+The program outputs in CSV format. 
+If the \texttt{affected} field is \texttt{True},
+the blocking is successfully triggered.
+If the \texttt{affected} field is \texttt{False},
+the blocking is not triggered.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evaluation workflow}
+% {\em [Mandatory for Artifacts Functional \& Results Reproduced, optional for
+% Artifact Available]} \textit{This section should include all the operational
+% steps and experiments which must be performed to evaluate if your your artifact is
+% functional and to validate your paper's key results and claims. For that
+% purpose, we ask you to use the two following subsections and cross-reference the
+% items therein as explained next.}
+
+\subsubsection{Major Claims}
+% {\em [Mandatory for Artifacts Functional \& Results Reproduced, optional for
+% Artifact Available]} \textit{Enumerate here the major claims (Cx) made in your
+% paper. Follows an example:}\\
+
+\begin{compactdesc}
+    \item[(C0):] \textit{}
+    As of Tuesday, March 7, 2023, the GFW was still blocking random traffic.
+    This is supported by the experiment (E0).
+
+    \item[(C1):] \textit{}
+    As of Wednesday, March 15, 2023,
+    the GFW had stopped blocking random traffic dynamically.
+    This is supported by the experiment (E1).
+
+    \item[(C2):] \textit{}
+    The GFW exempts a connection if
+    the first TCP packet $\mathtt{pkt}$ satisfies:
+    $\frac{\mathit{popcount}(\mathtt{pkt})}{\mathit{len}(\mathtt{pkt})} \le 3.4$ or 
+    $\frac{\mathit{popcount}(\mathtt{pkt})}{\mathit{len}(\mathtt{pkt})} \ge 4.6$. 
+    This is supported by the experiment (E2) described in Section 4.1 of the paper. 
+    This detection rule is introduced in Algorithm 1 (Ex1)
+    and illustrated in Figure 1.d.
+
+    \item[(C3):] \textit{}
+    The GFW exempts a connection if
+    the first six (or more) bytes of the first TCP data packet $\mathtt{pkt}$ are 
+    $[\mathtt{0x20},\mathtt{0x7e}]$. 
+    This is supported by the experiment (E3) described in Section 4.2 of the paper. 
+    This detection rule is introduced in Algorithm 1 (Ex2)
+    and illustrated in Figure 1.a.
+
+    \item[(C4):] \textit{}
+    The GFW exempts a connection if 
+    the first TCP data packet $\mathtt{pkt}$ has 
+    more than 50\% of $\mathtt{pkt}$'s bytes in $[\mathtt{0x20},\mathtt{0x7e}]$. 
+    This is supported by the experiment (E4) described in Section 4.2 of the paper. 
+    This detection rule is introduced in Algorithm 1 (Ex3)
+    and illustrated in Figure 1.b.
+
+    \item[(C5):] \textit{}
+    The GFW exempts a connection if 
+    the first TCP data packet $\mathtt{pkt}$ has 
+    more than 20 contiguous bytes in
+    $[\mathtt{0x20},\mathtt{0x7e}]$. 
+    This is supported by the experiment (E5) described in Section 4.2 of the paper. 
+    This detection rule is introduced in Algorithm 1 (Ex4)
+    and illustrated in Figure 1.c.
+
+    \item[(C6):] \textit{}
+    The GFW exempts a connection if 
+    the first few bytes of the first TCP data packet $\mathtt{pkt}$
+    match the protocol fingerprint for TLS or HTTP.
+    This is supported by the experiment (E6) described in Section 4.3 of the paper. 
+    This detection rule is introduced in Algorithm 1 (Ex5)
+    and illustrated in Figure 1.e.
+
+\end{compactdesc}
+
+\subsubsection{Experiments}
+% {\em [Mandatory for Artifacts Functional \& Results Reproduced, optional for
+% Artifact Available]} \textit{Link explicitly the description of your experiments
+% to the items you have provided in the previous subsection about Major Claims.
+% Please provide your estimates of human- and compute-time for each of the listed
+% experiments (using the suggested hardware/software configuration above). Follows
+% an example:}
+Experiment E0 tests if the GFW 
+still blocks random traffic dynamically 
+by sending random probes from China to a single server in US.
+If the reviewers can trigger the blocking in experiment E0,
+they can proceed to test experiments (E1-E6);
+otherwise,
+they only need to run experiment E1 to further confirm the GFW has stopped blocking random traffic.
+
+Experiments E0 and E2-E6 follow the same testing logic:
+we craft different payloads that will be either exempted or blocked by the GFW.
+We send them, from VPS in China to the VPS in US, through the GFW,
+to observe whether each payload can trigger the blocking or not.
+If the blocking or exemption results match with
+what Algorithm 1 predicts,
+it shows that the GFW is indeed using the detection rule described in Algorithm 1.
+%
+For reviewers' convenience, we implement Algorithm 1 as \texttt{utils/detect.py},
+which reads a list of given payloads in hex format and 
+writes if each payload will be exempted by any of the detection rules.
+
+Unless explicitly specified, 
+all operations described below are performed on the VPS in China.
+And $\$serverIP$ corresponds to the IP address of the VPS in US.
+
+% use paralist for more compact list format: for more details check here:
+% https://texfaq.org/FAQ-complist
+\begin{compactdesc}
+    \item[(E0):] \textit{[test-random] [5 human-minutes + 5 compute-minutes]:
+    } This experiment tests if the GFW blocks random traffic.
+    It also familiarizes the reviewers with the testing tools and logic.
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd artifacts}
+        \item[Execution:]  
+        Execute this command to generate a random probe of 200 bytes and
+        check if Algorithm 1 thinks it will be blocked by the GFW or not:
+        \texttt{head -c200 /dev/urandom | xxd -p -c256 | tee random.txt | ./utils/detect.py}.
+        
+        Execute this command to repeatedly send the probe to the same port of the US server:
+        \texttt{cat random.txt | ./utils/affected-payload -host \$serverIP -p \$serverPort}.
+
+        \item[Results:] 
+        If the \texttt{affected} field in the program output is \texttt{True},
+        it means that your generated probe has triggered the blocking by the GFW. 
+        This result should be consistent with what \texttt{detect.py} predicts.
+    \end{asparadesc}
+
+    \item[(E1):] \textit{[confirm-ceased-blocking] [15 human-minutes + 2 compute-days]:
+    } This experiment tests if the GFW has stopped blocking random traffic dynamically.
+    Specifically, it performs an Internet scan from a VPS machine in China 
+    to all 142,827 IP addresses that were previously marked affected as of August 22, 2022.
+    For each IP address, 
+    The test uses two types of probes: 
+    50-bytes of random data and 50-bytes of zero (as the control group). 
+    For each type of probe, the program makes up to 25 connections, 
+    and when five consecutive connections to an IP address fail, the program mark it as possibly affected. 
+    We then remove any probes that were also marked as affected in the control group to rule out 
+    most of the false positives due to network failure rather than censorship.
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd ceased-dynamic-blocking}
+        \item[Execution:]
+        Execute this command to perform the 2-day test: 
+        \texttt{make}. 
+
+        One then compares the results between the two tests using two different types of probes,
+        to find the IP addresses that are marked as blocked (\texttt{true}) in the random probe test 
+        but marked as not blocked (\texttt{false}) in the zero probe test:
+        \texttt{make compare}.
+        
+        \item[Results:] 
+        The number of affected IP addresses should be as low as around six thousand out of the 142,827 IP addresses tested.
+        One can further test these IP addresses recursively to make sure they are all false positives.
+    \end{asparadesc}
+
+    \item[(E2):] \textit{[test-entropy] [30 human-minutes + 30 compute-minutes]:}
+    This experiment test if the GFW exempts a connection whose
+    first TCP packet $\mathtt{pkt}$ satisfies:
+    $\frac{\mathit{popcount}(\mathtt{pkt})}{\mathit{len}(\mathtt{pkt})} \le 3.4$ or 
+    $\frac{\mathit{popcount}(\mathtt{pkt})}{\mathit{len}(\mathtt{pkt})} \ge 4.6$. 
+
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd test-entropy}
+
+        \item[Execution:]
+        Execute this command to generate a list of payloads: \texttt{make}. 
+        As shown in the output of \texttt{detect.py},
+        some of the probes will be exempted by the GFW; 
+        while other probes will not.
+
+        Use this command to test if each probe is exempted by the GFW:
+        \texttt{make test}.
+
+        Use this to compare the blocking results against the results predicted by the \texttt{detect.py}:
+        \texttt{make compare}.
+
+        \item[Results:] The testing results should match with what \texttt{detect.py} predicts.
+    \end{asparadesc}
+
+
+    \item[(E3):] \textit{[test-printable-prefixes] [15 human-minutes + 30 compute-minutes]:}
+    This experiment tests if the GFW exempts a connection whose
+    first six bytes are printable characters.
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd test-printable-prefixes}
+
+        \item[Execution:]
+        Execute this command to generate a list of payloads: \texttt{make}. 
+        As shown in the output of \texttt{detect.py},
+        some of the probes will be exempted by the GFW; 
+        while other probes will not.
+
+        Use this command to test if each probe is exempted by the GFW:
+        \texttt{make test}.
+
+        Use this to compare the blocking results against the results predicted by the \texttt{detect.py}:
+        \texttt{make compare}.
+
+        \item[Results:] The testing results should match with what \texttt{detect.py} predicts.
+    \end{asparadesc}
+    
+    \item[(E4):] \textit{[test-printable-fraction] [15 human-minutes + 30 compute-minutes]:}
+    This experiment tests if the GFW exempts a connection whose
+    first TCP data packet has more than 50\% of printable characters.
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd test-printable-fraction}
+
+        \item[Execution:]
+        Execute this command to generate a list of payloads: \texttt{make}. 
+        As shown in the output of \texttt{detect.py},
+        some of the probes will be exempted by the GFW; 
+        while other probes will not.
+
+        Use this command to test if each probe is exempted by the GFW:
+        \texttt{make test}.
+
+        Use this to compare the blocking results against the results predicted by the \texttt{detect.py}:
+        \texttt{make compare}.
+
+        \item[Results:] The testing results should match with what \texttt{detect.py} predicts.
+    \end{asparadesc}
+    
+    \item[(E5):] \textit{[test-printable-longest-run] [15 human-minutes + 15 compute-minutes]:}
+    This experiment tests if the GFW exempts a connection whose
+    first TCP data packet has more than 20 bytes of contiguous printable characters.
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd test-printable-longest-run}
+
+        \item[Execution:]
+        Execute this command to generate a list of payloads: \texttt{make}. 
+        As shown in the output of \texttt{detect.py},
+        some of the probes will be exempted by the GFW; 
+        while other probes will not.
+
+        Use this command to test if each probe is exempted by the GFW:
+        \texttt{make test}.
+
+        Use this to compare the blocking results against the results predicted by the \texttt{detect.py}:
+        \texttt{make compare}.
+
+        \item[Results:] The testing results should match with what \texttt{detect.py} predicts.
+    \end{asparadesc}
+    
+    \item[(E6):] \textit{[test-protocol-fingerprints] [15 human-minutes + 2 compute-hours]:}
+    This experiment tests if the GFW exempts traffic that matches the protocol fingerprints.
+    \begin{asparadesc}
+        \item[Preparation:] \texttt{cd test-protocol-fingerprints}
+
+        \item[Execution:]
+        Execute this command to generate a list of payloads: \texttt{make}. 
+        As shown in the output of \texttt{detect.py},
+        some of the probes start with
+        a fingerprint that will be exempted by the GFW; 
+        while other probes do not.
+
+        Use this command to test if each probe is exempted by the GFW:
+        \texttt{make test}.
+
+        Use this to compare the blocking results against the results predicted by the \texttt{detect.py}:
+        \texttt{make compare}.
+
+        \item[Results:] The testing results should match with what \texttt{detect.py} predicts.
+    \end{asparadesc}
+    
+
+\end{compactdesc}
+
+% \textit{In all of the above blocks, please provide indications about the
+%  expected outcome for each of the steps (given the suggested hardware/software
+%  configuration above).}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \subsection{Notes on Reusability}
+% \label{sec:reuse}
+% {\em [Optional]} \textit{This section is meant to optionally share additional
+% information on how to use your artifact beyond the research presented in your
+% paper. In fact, a broader objective of an artifact evaluation is to help you
+% make your research reusable by others.}
+
+% \textit{You can include in this section any sort of instruction that you believe
+% would help others re-use your artifact, like, for example, scaling down/up
+% certain components of your artifact, working on different kinds of input or
+% data-set, customizing the behavior replacing a specific module/algorithm, etc.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Version}
+%%%%%%%%%%%%%%%%%%%%
+% Obligatory.
+% Do not change/remove.
+%%%%%%%%%%%%%%%%%%%%
+Based on the LaTeX template for Artifact Evaluation V20220926. Submission,
+reviewing and badging methodology followed for the evaluation of this artifact
+can be found at \url{https://secartifacts.github.io/usenixsec2023/}.

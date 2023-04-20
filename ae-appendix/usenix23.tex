@@ -1,0 +1,147 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template for USENIX papers.
+%
+% History:
+%
+% - TEMPLATE for Usenix papers, specifically to meet requirements of
+%   USENIX '05. originally a template for producing IEEE-format
+%   articles using LaTeX. written by Matthew Ward, CS Department,
+%   Worcester Polytechnic Institute. adapted by David Beazley for his
+%   excellent SWIG paper in Proceedings, Tcl 96. turned into a
+%   smartass generic template by De Clarke, with thanks to both the
+%   above pioneers. Use at your own risk. Complaints to /dev/null.
+%   Make it two column with no page numbering, default is 10 point.
+%
+% - Munged by Fred Douglis <douglis@research.att.com> 10/97 to
+%   separate the .sty file from the LaTeX source template, so that
+%   people can more easily include the .sty file into an existing
+%   document. Also changed to more closely follow the style guidelines
+%   as represented by the Word sample file.
+%
+% - Note that since 2010, USENIX does not require endnotes. If you
+%   want foot of page notes, don't include the endnotes package in the
+%   usepackage command, below.
+% - This version uses the latex2e styles, not the very ancient 2.09
+%   stuff.
+%
+% - Updated July 2018: Text block size changed from 6.5" to 7"
+%
+% - Updated Dec 2018 for ATC'19:
+%
+%   * Revised text to pass HotCRP's auto-formatting check, with
+%     hotcrp.settings.submission_form.body_font_size=10pt, and
+%     hotcrp.settings.submission_form.line_height=12pt
+%
+%   * Switched from \endnote-s to \footnote-s to match Usenix's policy.
+%
+%   * \section* => \begin{abstract} ... \end{abstract}
+%
+%   * Make template self-contained in terms of bibtex entires, to allow
+%     this file to be compiled. (And changing refs style to 'plain'.)
+%
+%   * Make template self-contained in terms of figures, to
+%     allow this file to be compiled.
+%
+%   * Added packages for hyperref, embedding fonts, and improving
+%     appearance.
+%
+%   * Removed outdated text.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[letterpaper,twocolumn,10pt]{article}
+\usepackage{usenix-2020-09}
+% Add all three awarded badges to the final version of the appendix.
+\usepackage[available,functional,reproduced]{usenixbadges}
+
+% to be able to draw some self-contained figs
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{paralist}
+\usepackage{titling}
+\setlength{\droptitle}{-1.2cm}
+
+% Disable metadata for reproducible PDF.
+% https://tex.stackexchange.com/a/313605
+\ifpdf
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=-1
+\hypersetup{pdfcreator={},pdfproducer={}}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To add the badges to the final version after notification, first download
+% the appropriate `usenixbadges` package version as detailed on the Final
+% Artifact Appendix instructions page on the USENIX Security website.
+%
+% Then, uncomment the following line using the appropriate options:
+% \usepackage[available,functional,reproduced]{usenixbadges}
+%
+% In the options, list the badges that have been awarded to your paper.
+% The possible badges are:
+%
+%  * `available`  --- affix the "Artifacts Available" badge
+%  * `functional` --- affix the "Artifacts Functional" badge
+%  * `reproduced` --- affix the "Results Reproduced" badge
+%
+% Example:
+%\usepackage[available,functional,reproduced]{usenixbadges}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------------------------------
+\begin{document}
+%-------------------------------------------------------------------------------
+
+% keep as timestamp and version number
+\date{March 7, 2023, v1.0}
+
+% Todo: Update with your paper title
+\title{USENIX'23 Artifact Appendix: How the Great Firewall of China \\Detects and Blocks Fully Encrypted Traffic}
+
+% Todo: Update with your names and affiliations
+\author{
+    {\rm Mingshi Wu}\\
+    GFW Report
+    \and
+    {\rm Jackson Sippe}\\
+    University of Colorado Boulder
+    \and
+    {\rm Danesh Sivakumar}\\
+    University of Maryland
+    \and
+    {\rm Jack Burg}\\
+    University of Maryland
+    \and
+    {\rm Peter Anderson}\\
+    Independent researcher
+    \and
+    {\rm Xiaokang Wang}\\
+    V2Ray Project
+    \and
+    {\rm Kevin Bock}\\
+    University of Maryland
+    \and
+    {\rm Amir Houmansadr}\\
+    University of Massachusetts Amherst
+    \and
+    {\rm Dave Levin}\\
+    University of Maryland
+    \and
+    {\rm Eric Wustrow}\\
+    University of Colorado Boulder
+}
+
+\maketitle
+
+\input{usenix23-ae}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%  LocalWords:  endnotes includegraphics fread ptr nobj noindent
+%%  LocalWords:  pdflatex acks

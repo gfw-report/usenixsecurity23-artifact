@@ -1,0 +1,17 @@
+This is the results of ambiguous IPs today:
+
+cut -d, -f7 10pct-ambiguous-prefixes20-random-9machines-t5-r25-w400-s1s.aggregated.out | sort | uniq -c
+
+      1 affected
+ 161380 false
+  95943 true
+ 160725 unknown
+
+This was the result in May:
+
+cut -d, -f7 ../10pct-ambiguous-prefixes20/10pct-ambiguous-prefixes20-random-9machines-t5-r25-w400-s1s.aggregated.out | sort | uniq -c
+
+      1 affected
+  55962 false
+ 201586 true
+ 160500 unknown
